@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Para ti 🌻🎀</title>
+
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='style.css') }}"
+    >
+
+</head>
+
+
+<body class="pagina-inicio">
+
+
+    <!-- DECORACIONES KAWAII -->
+
+    <div class="decoraciones-inicio">
+
+        <span>🌻</span>
+        <span>🌸</span>
+        <span>🎀</span>
+        <span>💗</span>
+        <span>🌼</span>
+        <span>✨</span>
+        <span>🐱</span>
+        <span>💛</span>
+        <span>🌸</span>
+        <span>🎀</span>
+        <span>💕</span>
+        <span>🌻</span>
+        <span>✨</span>
+        <span>🐱</span>
+        <span>💗</span>
+        <span>🌼</span>
+
+    </div>
+
+
+    <!-- CORAZONES FLOTANDO -->
+
+    <div class="corazones-inicio">
+
+        <span>💗</span>
+        <span>💛</span>
+        <span>💕</span>
+        <span>💖</span>
+        <span>💗</span>
+        <span>✨</span>
+        <span>💛</span>
+
+    </div>
+
+
+    <!-- TARJETA -->
+
+    <div class="tarjeta">
+
+
+        <!-- MOÑO -->
+
+        <div class="kitty-superior">
+
+            🎀 🐱 🎀
+
+        </div>
+
+
+        <div class="corazon">
+
+            💛
+
+        </div>
+
+
+        <h1>
+
+            Para una persona especial... 🌸
+
+        </h1>
+
+
+        <p>
+
+            Esta página fue hecha
+            especialmente para ti. 💗
+
+            <br>
+            <br>
+
+            Pero antes de entrar
+            tienes que descubrir
+            la contraseña 🌻🎀
+
+        </p>
+
+
+        <!-- FORMULARIO -->
+
+        <form method="POST">
+
+
+            <div class="campo-password">
+
+                <input
+                    type="text"
+                    id="password"
+                    name="password"
+                    placeholder="Escribe la contraseña..."
+                    autocomplete="off"
+                    required
+                >
+
+
+                <button
+                    type="button"
+                    class="ver-password"
+                    onclick="ocultarPassword()"
+                    aria-label="Ocultar contraseña"
+                >
+
+                    🙈
+
+                </button>
+
+            </div>
+
+
+            <button
+                type="submit"
+                class="boton-entrar"
+            >
+
+                Entrar ❤️✨
+
+            </button>
+
+
+        </form>
+
+
+        <!-- ERROR -->
+
+        {% if error %}
+
+        <div class="error">
+
+            <div class="error-emoji">
+
+                🍪😂
+
+            </div>
+
+
+            <strong>
+
+                Ups 😭
+
+            </strong>
+
+
+            <br>
+
+
+            {{ error }}
+
+        </div>
+
+        {% endif %}
+
+
+        <div class="decoracion-abajo">
+
+            🌻 💗 🎀 💗 🌻
+
+        </div>
+
+
+    </div>
+
+
+    <script>
+
+        function ocultarPassword() {
+
+            const password =
+                document.getElementById("password");
+
+            const boton =
+                document.querySelector(".ver-password");
+
+
+            if (password.type === "text") {
+
+                password.type = "password";
+
+                boton.textContent = "👁️";
+
+            } else {
+
+                password.type = "text";
+
+                boton.textContent = "🙈";
+
+            }
+
+        }
+
+    </script>
+
+
+</body>
+
+</html>
+```

@@ -1,0 +1,1505 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>¡Atrapa a Tiki! 🐱💗</title>
+
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='style.css') }}"
+    >
+
+    <style>
+
+        /* =====================================================
+           FONDO
+           ===================================================== */
+
+        body.pagina-juego {
+
+            margin: 0;
+
+            min-height: 100vh;
+
+            overflow: hidden;
+
+            background:
+
+                radial-gradient(
+                    circle at 10% 10%,
+                    #fff1a8,
+                    transparent 25%
+                ),
+
+                radial-gradient(
+                    circle at 90% 10%,
+                    #ffb8d7,
+                    transparent 25%
+                ),
+
+                radial-gradient(
+                    circle at 10% 90%,
+                    #ffd5e7,
+                    transparent 25%
+                ),
+
+                radial-gradient(
+                    circle at 90% 90%,
+                    #ffe27a,
+                    transparent 25%
+                ),
+
+                linear-gradient(
+                    135deg,
+                    #ffd1e3,
+                    #fff0a6,
+                    #ffd6e8
+                );
+
+            font-family:
+                "Trebuchet MS",
+                "Comic Sans MS",
+                Arial,
+                sans-serif;
+        }
+
+
+        /* =====================================================
+           DECORACIONES
+           ===================================================== */
+
+        .decoraciones-juego {
+
+            position: fixed;
+
+            inset: 0;
+
+            pointer-events: none;
+
+            z-index: 0;
+        }
+
+
+        .decoraciones-juego span {
+
+            position: absolute;
+
+            font-size: 28px;
+
+            animation:
+                flotarJuego
+                5s
+                ease-in-out
+                infinite;
+        }
+
+
+        .decoraciones-juego span:nth-child(1) {
+            left: 7%;
+            top: 10%;
+        }
+
+        .decoraciones-juego span:nth-child(2) {
+            right: 8%;
+            top: 13%;
+            animation-delay: .8s;
+        }
+
+        .decoraciones-juego span:nth-child(3) {
+            left: 12%;
+            bottom: 15%;
+            animation-delay: 1.5s;
+        }
+
+        .decoraciones-juego span:nth-child(4) {
+            right: 10%;
+            bottom: 18%;
+            animation-delay: 2.2s;
+        }
+
+        .decoraciones-juego span:nth-child(5) {
+            left: 45%;
+            top: 7%;
+            animation-delay: 2.7s;
+        }
+
+        .decoraciones-juego span:nth-child(6) {
+            right: 35%;
+            bottom: 7%;
+            animation-delay: 1.2s;
+        }
+
+
+        @keyframes flotarJuego {
+
+            0%,
+            100% {
+
+                transform:
+                    translateY(0)
+                    rotate(-5deg);
+            }
+
+            50% {
+
+                transform:
+                    translateY(-15px)
+                    rotate(6deg)
+                    scale(1.08);
+            }
+        }
+
+
+        /* =====================================================
+           CONTENIDO
+           ===================================================== */
+
+        .contenido-juego {
+
+            position: relative;
+
+            z-index: 2;
+
+            width: 100%;
+
+            min-height: 100vh;
+
+            display: flex;
+
+            flex-direction: column;
+
+            align-items: center;
+
+            padding-top: 22px;
+
+            box-sizing: border-box;
+        }
+
+
+        /* =====================================================
+           TITULO
+           ===================================================== */
+
+        .contenido-juego h1 {
+
+            margin:
+                5px 0 4px;
+
+            color:
+                #d94f87;
+
+            font-size:
+                34px;
+
+            text-align:
+                center;
+
+            text-shadow:
+                2px 2px white;
+
+            animation:
+                tituloJuego
+                2s
+                ease-in-out
+                infinite;
+        }
+
+
+        @keyframes tituloJuego {
+
+            0%,
+            100% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.03);
+            }
+        }
+
+
+        /* =====================================================
+           INSTRUCCIÓN
+           ===================================================== */
+
+        .instruccion-juego {
+
+            margin:
+                4px 15px 10px;
+
+            color:
+                #7a4260;
+
+            font-size:
+                17px;
+
+            text-align:
+                center;
+
+            font-weight:
+                bold;
+        }
+
+
+        /* =====================================================
+           MARCADOR
+           ===================================================== */
+
+        .marcador {
+
+            background:
+                rgba(255,255,255,.95);
+
+            padding:
+                9px 24px;
+
+            border-radius:
+                30px;
+
+            color:
+                #d94f87;
+
+            font-size:
+                18px;
+
+            font-weight:
+                bold;
+
+            box-shadow:
+                0 5px 15px
+                rgba(180,80,120,.2);
+
+            margin-bottom:
+                10px;
+        }
+
+
+        /* =====================================================
+           ZONA DE JUEGO
+           ===================================================== */
+
+        .zona-juego {
+
+            position:
+                relative;
+
+            width:
+                90%;
+
+            max-width:
+                850px;
+
+            height:
+                65vh;
+
+            min-height:
+                400px;
+
+            background:
+                rgba(255,255,255,.65);
+
+            border:
+                4px solid
+                rgba(255,255,255,.9);
+
+            border-radius:
+                30px;
+
+            box-shadow:
+                0 10px 30px
+                rgba(170,70,120,.2);
+
+            overflow:
+                hidden;
+        }
+
+
+        /* =====================================================
+           TIKI
+           ===================================================== */
+
+        .tiki {
+
+            position:
+                absolute;
+
+            width:
+                60px;
+
+            height:
+                60px;
+
+            object-fit:
+                contain;
+
+            cursor:
+                pointer;
+
+            user-select:
+                none;
+
+            -webkit-user-drag:
+                none;
+
+            z-index:
+                5;
+
+            filter:
+                drop-shadow(
+                    0 4px 4px
+                    rgba(0,0,0,.18)
+                );
+
+            transition:
+                transform .15s ease;
+        }
+
+
+        .tiki:hover {
+
+            transform:
+                scale(1.08);
+        }
+
+
+        /* =====================================================
+           BOMBAS
+           ===================================================== */
+
+        .bomba {
+
+            position:
+                absolute;
+
+            width:
+                54px;
+
+            height:
+                54px;
+
+            display:
+                flex;
+
+            align-items:
+                center;
+
+            justify-content:
+                center;
+
+            font-size:
+                38px;
+
+            cursor:
+                pointer;
+
+            user-select:
+                none;
+
+            z-index:
+                4;
+
+            filter:
+                drop-shadow(
+                    0 4px 4px
+                    rgba(0,0,0,.2)
+                );
+
+            animation:
+                bombaFlotando
+                1.7s
+                ease-in-out
+                infinite;
+        }
+
+
+        @keyframes bombaFlotando {
+
+            0%,
+            100% {
+
+                transform:
+                    rotate(-6deg)
+                    translateY(0);
+            }
+
+            50% {
+
+                transform:
+                    rotate(6deg)
+                    translateY(-5px);
+            }
+        }
+
+
+        /* =====================================================
+           EFECTO AL ATRAPAR
+           ===================================================== */
+
+        .efecto-atrapado {
+
+            position:
+                absolute;
+
+            pointer-events:
+                none;
+
+            font-size:
+                25px;
+
+            z-index:
+                20;
+
+            animation:
+                explotar
+                .6s
+                ease
+                forwards;
+        }
+
+
+        @keyframes explotar {
+
+            0% {
+
+                opacity:
+                    1;
+
+                transform:
+                    scale(.5);
+            }
+
+            100% {
+
+                opacity:
+                    0;
+
+                transform:
+                    scale(2);
+            }
+        }
+
+
+        /* =====================================================
+           MENSAJE DE BOMBA
+           ===================================================== */
+
+        .mensaje-trampa {
+
+            position:
+                fixed;
+
+            top:
+                50%;
+
+            left:
+                50%;
+
+            transform:
+                translate(-50%,-50%)
+                scale(.8);
+
+            background:
+                white;
+
+            padding:
+                25px 35px;
+
+            border-radius:
+                25px;
+
+            color:
+                #d94f87;
+
+            font-size:
+                22px;
+
+            font-weight:
+                bold;
+
+            text-align:
+                center;
+
+            box-shadow:
+                0 10px 40px
+                rgba(120,50,90,.3);
+
+            opacity:
+                0;
+
+            pointer-events:
+                none;
+
+            z-index:
+                100;
+
+            transition:
+                opacity .25s ease,
+                transform .25s ease;
+        }
+
+
+        .mensaje-trampa.mostrar {
+
+            opacity:
+                1;
+
+            transform:
+                translate(-50%,-50%)
+                scale(1);
+        }
+
+
+        /* =====================================================
+           VICTORIA
+           ===================================================== */
+
+        .victoria {
+
+            position:
+                fixed;
+
+            inset:
+                0;
+
+            background:
+                rgba(255,220,235,.97);
+
+            display:
+                flex;
+
+            flex-direction:
+                column;
+
+            align-items:
+                center;
+
+            justify-content:
+                center;
+
+            text-align:
+                center;
+
+            z-index:
+                200;
+
+            opacity:
+                0;
+
+            pointer-events:
+                none;
+
+            transition:
+                opacity .5s ease;
+        }
+
+
+        .victoria.mostrar {
+
+            opacity:
+                1;
+
+            pointer-events:
+                auto;
+        }
+
+
+        .victoria img {
+
+            width:
+                100px;
+
+            height:
+                100px;
+
+            object-fit:
+                contain;
+
+            animation:
+                victoriaTiki
+                1s
+                ease-in-out
+                infinite;
+        }
+
+
+        @keyframes victoriaTiki {
+
+            0%,
+            100% {
+
+                transform:
+                    rotate(-7deg)
+                    scale(1);
+            }
+
+            50% {
+
+                transform:
+                    rotate(7deg)
+                    scale(1.1);
+            }
+        }
+
+
+        .victoria h2 {
+
+            margin:
+                15px 0 5px;
+
+            color:
+                #d94f87;
+
+            font-size:
+                38px;
+
+            text-shadow:
+                2px 2px white;
+        }
+
+
+        .victoria p {
+
+            margin:
+                5px 20px 20px;
+
+            color:
+                #7a4260;
+
+            font-size:
+                20px;
+
+            font-weight:
+                bold;
+        }
+
+
+        /* =====================================================
+           BOTÓN
+           ===================================================== */
+
+        .boton-volver-juego {
+
+            display:
+                inline-block;
+
+            margin-top:
+                12px;
+
+            padding:
+                12px 27px;
+
+            border-radius:
+                30px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #ff78ad,
+                    #ffb52e
+                );
+
+            color:
+                white;
+
+            text-decoration:
+                none;
+
+            font-weight:
+                bold;
+
+            box-shadow:
+                0 6px 15px
+                rgba(200,70,120,.25);
+
+            transition:
+                transform .2s ease;
+        }
+
+
+        .boton-volver-juego:hover {
+
+            transform:
+                scale(1.05);
+        }
+
+
+        /* =====================================================
+           MÓVIL
+           ===================================================== */
+
+        @media (max-width: 600px) {
+
+            .contenido-juego {
+
+                padding-top:
+                    15px;
+            }
+
+
+            .contenido-juego h1 {
+
+                font-size:
+                    27px;
+            }
+
+
+            .instruccion-juego {
+
+                font-size:
+                    15px;
+            }
+
+
+            .zona-juego {
+
+                width:
+                    92%;
+
+                height:
+                    62vh;
+
+                min-height:
+                    350px;
+            }
+
+
+            .tiki {
+
+                width:
+                    55px;
+
+                height:
+                    55px;
+            }
+
+
+            .bomba {
+
+                width:
+                    50px;
+
+                height:
+                    50px;
+
+                font-size:
+                    34px;
+            }
+
+
+            .victoria h2 {
+
+                font-size:
+                    31px;
+            }
+
+
+            .victoria p {
+
+                font-size:
+                    18px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body class="pagina-juego">
+
+
+    <!-- =====================================================
+         DECORACIONES
+         ===================================================== -->
+
+    <div class="decoraciones-juego">
+
+        <span>🌻</span>
+        <span>💗</span>
+        <span>🎀</span>
+        <span>🌸</span>
+        <span>✨</span>
+        <span>💛</span>
+
+    </div>
+
+
+    <!-- =====================================================
+         CONTENIDO
+         ===================================================== -->
+
+    <main class="contenido-juego">
+
+
+        <h1>
+            🎮 ¡Atrapa a Tiki! 🐱
+        </h1>
+
+
+        <p class="instruccion-juego">
+
+            ¡Atrápalo 5 veces!
+
+            <br>
+
+            Pero cuidado con las trampas 💣💥
+
+        </p>
+
+
+        <div class="marcador">
+
+            Tiki atrapado:
+
+            <span id="contador">
+                0
+            </span>
+
+            / 5
+
+        </div>
+
+
+        <!-- =================================================
+             ZONA DE JUEGO
+             ================================================= -->
+
+        <div
+            class="zona-juego"
+            id="zonaJuego"
+        >
+
+            <img
+                id="tiki"
+                class="tiki"
+                src="{{ url_for('static', filename='tiki.jpeg') }}"
+                alt="Tiki"
+            >
+
+        </div>
+
+
+        <a
+            href="{{ url_for('menu') }}"
+            class="boton-volver-juego"
+        >
+
+            💗 Volver a nuestro mundo 💗
+
+        </a>
+
+
+    </main>
+
+
+    <!-- =====================================================
+         MENSAJE BOMBA
+         ===================================================== -->
+
+    <div
+        id="mensajeTrampa"
+        class="mensaje-trampa"
+    >
+
+        💥 ¡BOOM! 💥
+
+        <br>
+
+        Tiki se escapó 😭
+
+        <br>
+
+        <small>
+            ¡Volviste a 0!
+        </small>
+
+    </div>
+
+
+    <!-- =====================================================
+         VICTORIA
+         ===================================================== -->
+
+    <div
+        id="victoria"
+        class="victoria"
+    >
+
+        <img
+            src="{{ url_for('static', filename='tiki.jpeg') }}"
+            alt="Tiki"
+        >
+
+
+        <h2>
+            🎉 ¡Ganaste! 🎉
+        </h2>
+
+
+        <p>
+            🐱💗 ¡Lograste atrapar a Tiki! 💗🐱
+        </p>
+
+
+        <a
+            href="{{ url_for('menu') }}"
+            class="boton-volver-juego"
+        >
+
+            💗 Volver a nuestro mundo 💗
+
+        </a>
+
+    </div>
+
+
+    <!-- =====================================================
+         MUSICA
+         ===================================================== -->
+
+    <audio
+        id="musica"
+        autoplay
+        loop
+    >
+
+        <source
+            src="{{ url_for('static', filename='musica.mp3') }}"
+            type="audio/mpeg"
+        >
+
+    </audio>
+
+
+    <script>
+
+        /* =================================================
+           MUSICA
+           ================================================= */
+
+        const musica =
+            document.getElementById(
+                "musica"
+            );
+
+
+        musica.volume =
+            0.7;
+
+
+        musica.loop =
+            true;
+
+
+        const tiempoGuardado =
+            sessionStorage.getItem(
+                "tiempoMusica"
+            );
+
+
+        musica.addEventListener(
+            "loadedmetadata",
+            () => {
+
+                if (
+                    tiempoGuardado !== null
+                ) {
+
+                    musica.currentTime =
+                        parseFloat(
+                            tiempoGuardado
+                        );
+
+                }
+
+
+                musica.play().catch(() => {
+
+                    console.log(
+                        "El navegador bloqueó el autoplay."
+                    );
+
+                });
+
+            },
+            {
+                once: true
+            }
+        );
+
+
+        setInterval(() => {
+
+            if (
+                !musica.paused &&
+                !musica.ended
+            ) {
+
+                sessionStorage.setItem(
+                    "tiempoMusica",
+                    musica.currentTime
+                );
+
+            }
+
+        }, 200);
+
+
+        window.addEventListener(
+            "beforeunload",
+            () => {
+
+                sessionStorage.setItem(
+                    "tiempoMusica",
+                    musica.currentTime
+                );
+
+            }
+        );
+
+
+        /* =================================================
+           VARIABLES DEL JUEGO
+           ================================================= */
+
+        const zonaJuego =
+            document.getElementById(
+                "zonaJuego"
+            );
+
+
+        const tiki =
+            document.getElementById(
+                "tiki"
+            );
+
+
+        const contador =
+            document.getElementById(
+                "contador"
+            );
+
+
+        const mensajeTrampa =
+            document.getElementById(
+                "mensajeTrampa"
+            );
+
+
+        const victoria =
+            document.getElementById(
+                "victoria"
+            );
+
+
+        let puntos =
+            0;
+
+
+        let velocidad =
+            950;
+
+
+        let movimientoTiki;
+
+
+        /* =================================================
+           MOVER TIKI
+           ================================================= */
+
+        function moverTiki() {
+
+            const anchoZona =
+                zonaJuego.clientWidth;
+
+
+            const altoZona =
+                zonaJuego.clientHeight;
+
+
+            const anchoTiki =
+                tiki.offsetWidth;
+
+
+            const altoTiki =
+                tiki.offsetHeight;
+
+
+            const maxX =
+                anchoZona -
+                anchoTiki;
+
+
+            const maxY =
+                altoZona -
+                altoTiki;
+
+
+            const x =
+                Math.random() *
+                Math.max(
+                    maxX,
+                    0
+                );
+
+
+            const y =
+                Math.random() *
+                Math.max(
+                    maxY,
+                    0
+                );
+
+
+            tiki.style.left =
+                x + "px";
+
+
+            tiki.style.top =
+                y + "px";
+
+        }
+
+
+        /* =================================================
+           MOVIMIENTO TIKI
+           ================================================= */
+
+        function iniciarMovimiento() {
+
+            clearInterval(
+                movimientoTiki
+            );
+
+
+            moverTiki();
+
+
+            movimientoTiki =
+                setInterval(
+                    moverTiki,
+                    velocidad
+                );
+
+        }
+
+
+        /* =================================================
+           EFECTO ATRAPADO
+           ================================================= */
+
+        function efectoAtrapado() {
+
+            const efecto =
+                document.createElement(
+                    "div"
+                );
+
+
+            efecto.className =
+                "efecto-atrapado";
+
+
+            efecto.textContent =
+                "💗✨";
+
+
+            efecto.style.left =
+                tiki.offsetLeft + "px";
+
+
+            efecto.style.top =
+                tiki.offsetTop + "px";
+
+
+            zonaJuego.appendChild(
+                efecto
+            );
+
+
+            setTimeout(() => {
+
+                efecto.remove();
+
+            }, 600);
+
+        }
+
+
+        /* =================================================
+           ATRAPAR TIKI
+           ================================================= */
+
+        tiki.addEventListener(
+            "click",
+            () => {
+
+                puntos++;
+
+
+                contador.textContent =
+                    puntos;
+
+
+                efectoAtrapado();
+
+
+                velocidad =
+                    Math.max(
+                        400,
+                        velocidad - 90
+                    );
+
+
+                /* =========================================
+                   JUEGO COMPLETADO
+                   ========================================= */
+
+                if (
+                    puntos >= 5
+                ) {
+
+                    clearInterval(
+                        movimientoTiki
+                    );
+
+
+                    /*
+                     * Guardamos que el juego
+                     * ya fue completado.
+                     */
+
+                    localStorage.setItem(
+                        "juegoCompletado",
+                        "true"
+                    );
+
+
+                    victoria.classList.add(
+                        "mostrar"
+                    );
+
+
+                    return;
+
+                }
+
+
+                iniciarMovimiento();
+
+            }
+        );
+
+
+        /* =================================================
+           CREAR BOMBA
+           ================================================= */
+
+        function crearBomba(
+            retraso
+        ) {
+
+            setTimeout(() => {
+
+                const bomba =
+                    document.createElement(
+                        "div"
+                    );
+
+
+                bomba.className =
+                    "bomba";
+
+
+                bomba.textContent =
+                    "💣";
+
+
+                zonaJuego.appendChild(
+                    bomba
+                );
+
+
+                moverBomba(
+                    bomba
+                );
+
+
+                const movimientoBomba =
+                    setInterval(() => {
+
+                        if (
+                            document.body.contains(
+                                bomba
+                            )
+                        ) {
+
+                            moverBomba(
+                                bomba
+                            );
+
+                        } else {
+
+                            clearInterval(
+                                movimientoBomba
+                            );
+
+                        }
+
+                    }, 1200);
+
+
+                bomba.addEventListener(
+                    "click",
+                    () => {
+
+                        puntos =
+                            0;
+
+
+                        contador.textContent =
+                            puntos;
+
+
+                        velocidad =
+                            950;
+
+
+                        mensajeTrampa.classList.add(
+                            "mostrar"
+                        );
+
+
+                        setTimeout(() => {
+
+                            mensajeTrampa.classList.remove(
+                                "mostrar"
+                            );
+
+                        }, 1200);
+
+
+                        iniciarMovimiento();
+
+                    }
+                );
+
+
+            }, retraso);
+
+        }
+
+
+        /* =================================================
+           MOVER BOMBA
+           ================================================= */
+
+        function moverBomba(
+            bomba
+        ) {
+
+            const anchoZona =
+                zonaJuego.clientWidth;
+
+
+            const altoZona =
+                zonaJuego.clientHeight;
+
+
+            const anchoBomba =
+                bomba.offsetWidth;
+
+
+            const altoBomba =
+                bomba.offsetHeight;
+
+
+            const maxX =
+                anchoZona -
+                anchoBomba;
+
+
+            const maxY =
+                altoZona -
+                altoBomba;
+
+
+            const x =
+                Math.random() *
+                Math.max(
+                    maxX,
+                    0
+                );
+
+
+            const y =
+                Math.random() *
+                Math.max(
+                    maxY,
+                    0
+                );
+
+
+            bomba.style.left =
+                x + "px";
+
+
+            bomba.style.top =
+                y + "px";
+
+        }
+
+
+        /* =================================================
+           BOMBAS
+           ================================================= */
+
+        crearBomba(
+            2500
+        );
+
+
+        crearBomba(
+            6000
+        );
+
+
+        crearBomba(
+            10000
+        );
+
+
+        crearBomba(
+            14000
+        );
+
+
+        /* =================================================
+           INICIAR JUEGO
+           ================================================= */
+
+        window.addEventListener(
+            "load",
+            () => {
+
+                moverTiki();
+
+                iniciarMovimiento();
+
+            }
+        );
+
+    </script>
+
+</body>
+
+</html>

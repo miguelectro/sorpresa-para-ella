@@ -1,0 +1,1171 @@
+<!DOCTYPE html>
+
+<html lang="es">
+
+<head>
+
+```
+<meta charset="UTF-8">
+
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+>
+
+<title>Nuestro recuerdo 📸❤️</title>
+
+<link
+    rel="stylesheet"
+    href="{{ url_for('static', filename='style.css') }}"
+>
+
+<style>
+
+    /* =========================
+       FONDO
+    ========================= */
+
+    .pagina-recuerdo {
+
+        min-height: 100vh;
+
+        overflow-x: hidden;
+
+        position: relative;
+
+        background:
+            radial-gradient(
+                circle at 15% 20%,
+                #fff4a8 0 5%,
+                transparent 18%
+            ),
+            radial-gradient(
+                circle at 85% 25%,
+                #ffd6e7 0 6%,
+                transparent 20%
+            ),
+            linear-gradient(
+                135deg,
+                #fff9d9,
+                #ffe5ef,
+                #fff3b8
+            );
+
+        font-family: Arial, sans-serif;
+    }
+
+
+    /* =========================
+       DECORACIONES
+    ========================= */
+
+    .recuerdo-decoraciones span {
+
+        position: fixed;
+
+        z-index: 1;
+
+        font-size: 30px;
+
+        animation:
+            flotar 5s ease-in-out infinite;
+
+        pointer-events: none;
+    }
+
+
+    .recuerdo-decoraciones span:nth-child(1) {
+        top: 8%;
+        left: 6%;
+    }
+
+    .recuerdo-decoraciones span:nth-child(2) {
+        top: 18%;
+        right: 8%;
+        animation-delay: 1s;
+    }
+
+    .recuerdo-decoraciones span:nth-child(3) {
+        top: 45%;
+        left: 3%;
+        animation-delay: 2s;
+    }
+
+    .recuerdo-decoraciones span:nth-child(4) {
+        top: 60%;
+        right: 5%;
+        animation-delay: 1.5s;
+    }
+
+    .recuerdo-decoraciones span:nth-child(5) {
+        bottom: 12%;
+        left: 10%;
+        animation-delay: .5s;
+    }
+
+    .recuerdo-decoraciones span:nth-child(6) {
+        bottom: 8%;
+        right: 12%;
+        animation-delay: 2.5s;
+    }
+
+    .recuerdo-decoraciones span:nth-child(7) {
+        top: 35%;
+        left: 15%;
+        animation-delay: 1.2s;
+    }
+
+    .recuerdo-decoraciones span:nth-child(8) {
+        top: 40%;
+        right: 15%;
+        animation-delay: 2s;
+    }
+
+
+    /* =========================
+       HELLO KITTY
+    ========================= */
+
+    .kitty-recuerdo {
+
+        position: fixed;
+
+        left: 25px;
+        bottom: 25px;
+
+        z-index: 5;
+
+        font-size: 72px;
+
+        animation:
+            kittyFlota 3s ease-in-out infinite;
+
+        filter:
+            drop-shadow(
+                0 5px 5px rgba(0,0,0,.15)
+            );
+
+        pointer-events: none;
+    }
+
+
+    /* =========================
+       SPIDER-MAN
+    ========================= */
+
+    .spiderman-recuerdo {
+
+        position: fixed;
+
+        right: 25px;
+        bottom: 25px;
+
+        z-index: 5;
+
+        font-size: 72px;
+
+        animation:
+            spidermanSalta 3.5s ease-in-out infinite;
+
+        filter:
+            drop-shadow(
+                0 5px 5px rgba(0,0,0,.15)
+            );
+
+        pointer-events: none;
+    }
+
+
+    /* =========================
+       CORAZONES
+    ========================= */
+
+    .corazones-recuerdo {
+
+        position: fixed;
+
+        inset: 0;
+
+        pointer-events: none;
+
+        overflow: hidden;
+
+        z-index: 0;
+    }
+
+
+    .corazones-recuerdo span {
+
+        position: absolute;
+
+        bottom: -50px;
+
+        font-size: 25px;
+
+        animation:
+            subirCorazon 8s linear infinite;
+
+        opacity: .75;
+    }
+
+
+    .corazones-recuerdo span:nth-child(1) {
+        left: 10%;
+        animation-delay: 0s;
+    }
+
+    .corazones-recuerdo span:nth-child(2) {
+        left: 25%;
+        animation-delay: 2s;
+    }
+
+    .corazones-recuerdo span:nth-child(3) {
+        left: 45%;
+        animation-delay: 4s;
+    }
+
+    .corazones-recuerdo span:nth-child(4) {
+        left: 65%;
+        animation-delay: 1s;
+    }
+
+    .corazones-recuerdo span:nth-child(5) {
+        left: 82%;
+        animation-delay: 3s;
+    }
+
+    .corazones-recuerdo span:nth-child(6) {
+        left: 92%;
+        animation-delay: 5s;
+    }
+
+
+    /* =========================
+       CONTENIDO
+    ========================= */
+
+    .contenido-recuerdo {
+
+        position: relative;
+
+        z-index: 3;
+
+        width: min(90%, 850px);
+
+        margin: auto;
+
+        padding:
+            50px
+            20px
+            100px;
+
+        text-align: center;
+    }
+
+
+    /* =========================
+       MOÑO
+    ========================= */
+
+    .moño-recuerdo {
+
+        font-size: 55px;
+
+        animation:
+            aparecer 1s ease-out,
+            moñoMovimiento 3s ease-in-out infinite;
+
+        margin-bottom: 10px;
+    }
+
+
+    /* =========================
+       TITULO
+    ========================= */
+
+    .contenido-recuerdo h1 {
+
+        color: #e94f87;
+
+        font-size:
+            clamp(
+                30px,
+                6vw,
+                52px
+            );
+
+        margin: 10px 0;
+
+        text-shadow:
+            2px 2px 0 white,
+            0 4px 10px rgba(0,0,0,.12);
+
+        animation:
+            tituloEntrada 1s ease-out;
+    }
+
+
+    .subtitulo-recuerdo {
+
+        color: #8d5b72;
+
+        font-size: 18px;
+
+        margin-bottom: 30px;
+
+        animation:
+            aparecer 1.5s ease-out;
+    }
+
+
+    /* =========================
+       MARCO DE FOTO
+    ========================= */
+
+    .marco-foto {
+
+        width: min(85%, 420px);
+
+        margin: 30px auto;
+
+        padding: 10px;
+
+        background: white;
+
+        border-radius: 22px;
+
+        box-shadow:
+            0 8px 20px rgba(0,0,0,.15),
+            0 0 0 5px #ffd1df;
+
+        transform: rotate(-1deg);
+
+        animation:
+            fotoEntrada .8s ease-out;
+
+        transition:
+            transform .3s ease,
+            box-shadow .3s ease;
+    }
+
+
+    .marco-foto:hover {
+
+        transform:
+            rotate(1deg)
+            scale(1.02);
+
+        box-shadow:
+            0 12px 25px rgba(0,0,0,.18),
+            0 0 18px #ffd15c;
+    }
+
+
+    /* =========================
+       FOTO REAL
+    ========================= */
+
+    .foto-pareja {
+
+        display: block;
+
+        width: 100%;
+
+        height: 420px;
+
+        object-fit: cover;
+
+        border-radius: 15px;
+
+        image-rendering: auto;
+    }
+
+
+    /* =========================
+       CONTADOR
+    ========================= */
+
+    .contador-caja {
+
+        margin: 35px auto;
+
+        padding: 25px 15px;
+
+        width: min(95%, 650px);
+
+        background:
+            rgba(255,255,255,.85);
+
+        border-radius: 25px;
+
+        box-shadow:
+            0 10px 25px rgba(0,0,0,.12);
+
+        animation:
+            aparecer 1.8s ease-out;
+    }
+
+
+    .contador-caja h2 {
+
+        color: #e94f87;
+
+        font-size: 22px;
+
+        margin-bottom: 20px;
+    }
+
+
+    .contador {
+
+        display: flex;
+
+        justify-content: center;
+
+        gap: 12px;
+
+        flex-wrap: wrap;
+    }
+
+
+    .tiempo {
+
+        min-width: 100px;
+
+        padding: 15px 10px;
+
+        border-radius: 18px;
+
+        background:
+            linear-gradient(
+                135deg,
+                #fff4a8,
+                #ffd9e7
+            );
+
+        box-shadow:
+            0 5px 12px rgba(0,0,0,.1);
+
+        animation:
+            contadorFlota
+            2.5s
+            ease-in-out
+            infinite;
+    }
+
+
+    .tiempo:nth-child(2) {
+        animation-delay: .2s;
+    }
+
+    .tiempo:nth-child(3) {
+        animation-delay: .4s;
+    }
+
+    .tiempo:nth-child(4) {
+        animation-delay: .6s;
+    }
+
+
+    .tiempo span {
+
+        display: block;
+
+        font-size: 30px;
+
+        font-weight: bold;
+
+        color: #e94f87;
+    }
+
+
+    .tiempo small {
+
+        color: #8d5b72;
+
+        font-size: 14px;
+    }
+
+
+    /* =========================
+       MENSAJE
+    ========================= */
+
+    .mensaje-recuerdo {
+
+        width: min(90%, 600px);
+
+        margin: 30px auto;
+
+        color: #70495a;
+
+        font-size: 18px;
+
+        line-height: 1.7;
+
+        animation:
+            aparecer 2s ease-out;
+    }
+
+
+    /* =========================
+       BOTON
+    ========================= */
+
+    .boton-volver-recuerdo {
+
+        display: inline-block;
+
+        margin-top: 20px;
+
+        padding: 14px 25px;
+
+        background:
+            linear-gradient(
+                135deg,
+                #ff8fb3,
+                #ffb7ce
+            );
+
+        color: white;
+
+        text-decoration: none;
+
+        border-radius: 30px;
+
+        font-weight: bold;
+
+        box-shadow:
+            0 7px 15px rgba(0,0,0,.15);
+
+        transition:
+            transform .3s ease,
+            box-shadow .3s ease;
+    }
+
+
+    .boton-volver-recuerdo:hover {
+
+        transform:
+            translateY(-4px)
+            scale(1.04);
+
+        box-shadow:
+            0 12px 22px rgba(0,0,0,.2);
+    }
+
+
+    /* =========================
+       ANIMACIONES
+    ========================= */
+
+    @keyframes flotar {
+
+        0%, 100% {
+            transform:
+                translateY(0)
+                rotate(-5deg);
+        }
+
+        50% {
+            transform:
+                translateY(-15px)
+                rotate(5deg);
+        }
+    }
+
+
+    @keyframes kittyFlota {
+
+        0%, 100% {
+            transform:
+                translateY(0)
+                rotate(-4deg);
+        }
+
+        50% {
+            transform:
+                translateY(-15px)
+                rotate(4deg);
+        }
+    }
+
+
+    @keyframes spidermanSalta {
+
+        0%, 100% {
+            transform:
+                translateY(0)
+                rotate(3deg);
+        }
+
+        50% {
+            transform:
+                translateY(-20px)
+                rotate(-3deg);
+        }
+    }
+
+
+    @keyframes subirCorazon {
+
+        0% {
+
+            transform:
+                translateY(0)
+                rotate(0deg);
+
+            opacity: 0;
+        }
+
+        15% {
+            opacity: .8;
+        }
+
+        100% {
+
+            transform:
+                translateY(-110vh)
+                rotate(360deg);
+
+            opacity: 0;
+        }
+    }
+
+
+    @keyframes aparecer {
+
+        from {
+
+            opacity: 0;
+
+            transform:
+                translateY(20px);
+        }
+
+        to {
+
+            opacity: 1;
+
+            transform:
+                translateY(0);
+        }
+    }
+
+
+    @keyframes tituloEntrada {
+
+        from {
+
+            opacity: 0;
+
+            transform:
+                scale(.7)
+                translateY(-20px);
+        }
+
+        to {
+
+            opacity: 1;
+
+            transform:
+                scale(1)
+                translateY(0);
+        }
+    }
+
+
+    @keyframes fotoEntrada {
+
+        from {
+
+            opacity: 0;
+
+            transform:
+                scale(.8)
+                rotate(-5deg);
+        }
+
+        to {
+
+            opacity: 1;
+
+            transform:
+                scale(1)
+                rotate(-1deg);
+        }
+    }
+
+
+    @keyframes contadorFlota {
+
+        0%, 100% {
+            transform: translateY(0);
+        }
+
+        50% {
+            transform: translateY(-5px);
+        }
+    }
+
+
+    @keyframes moñoMovimiento {
+
+        0%, 100% {
+            transform: rotate(-3deg);
+        }
+
+        50% {
+            transform:
+                rotate(3deg)
+                scale(1.05);
+        }
+    }
+
+
+    /* =========================
+       CELULAR
+    ========================= */
+
+    @media (max-width: 600px) {
+
+        .kitty-recuerdo,
+        .spiderman-recuerdo {
+
+            font-size: 50px;
+
+            bottom: 15px;
+        }
+
+
+        .kitty-recuerdo {
+            left: 10px;
+        }
+
+
+        .spiderman-recuerdo {
+            right: 10px;
+        }
+
+
+        .contenido-recuerdo {
+
+            padding-top: 30px;
+        }
+
+
+        .marco-foto {
+
+            width: min(88%, 350px);
+        }
+
+
+        .foto-pareja {
+
+            height: 350px;
+        }
+
+
+        .tiempo {
+
+            min-width: 75px;
+        }
+
+
+        .tiempo span {
+
+            font-size: 24px;
+        }
+
+    }
+
+</style>
+```
+
+</head>
+
+<body class="pagina-recuerdo">
+
+```
+<!-- DECORACIONES -->
+
+<div class="recuerdo-decoraciones">
+
+    <span>🌻</span>
+    <span>✨</span>
+    <span>🌸</span>
+    <span>💗</span>
+    <span>🌼</span>
+    <span>🎀</span>
+    <span>💛</span>
+    <span>💕</span>
+
+</div>
+
+
+<!-- HELLO KITTY -->
+
+<div class="kitty-recuerdo">
+    🐱🎀
+</div>
+
+
+<!-- SPIDER-MAN -->
+
+<div class="spiderman-recuerdo">
+    🕷️🕸️
+</div>
+
+
+<!-- CORAZONES -->
+
+<div class="corazones-recuerdo">
+
+    <span>💗</span>
+    <span>💕</span>
+    <span>💛</span>
+    <span>💗</span>
+    <span>🌸</span>
+    <span>❤️</span>
+
+</div>
+
+
+<!-- CONTENIDO -->
+
+<main class="contenido-recuerdo">
+
+
+    <div class="moño-recuerdo">
+        🎀📸🎀
+    </div>
+
+
+    <h1>
+        📸 Nuestro recuerdo ❤️
+    </h1>
+
+
+    <p class="subtitulo-recuerdo">
+        Tengo a la novia mas hermosa del mundo ... 💗
+    </p>
+
+
+    <!-- FOTO -->
+
+    <div class="marco-foto">
+
+        <img
+            src="{{ url_for('static', filename='foto-pareja.jpeg') }}"
+            alt="Nuestro recuerdo ❤️"
+            class="foto-pareja"
+        >
+
+    </div>
+
+
+    <!-- CONTADOR -->
+
+    <div class="contador-caja">
+
+        <h2>
+            💗 Juntos desde el 29 de noviembre 💗
+        </h2>
+
+
+        <div class="contador">
+
+            <div class="tiempo">
+
+                <span id="dias">
+                    0
+                </span>
+
+                <small>
+                    Días
+                </small>
+
+            </div>
+
+
+            <div class="tiempo">
+
+                <span id="horas">
+                    0
+                </span>
+
+                <small>
+                    Horas
+                </small>
+
+            </div>
+
+
+            <div class="tiempo">
+
+                <span id="minutos">
+                    0
+                </span>
+
+                <small>
+                    Minutos
+                </small>
+
+            </div>
+
+
+            <div class="tiempo">
+
+                <span id="segundos">
+                    0
+                </span>
+
+                <small>
+                    Segundos
+                </small>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- MENSAJE -->
+
+    <p class="mensaje-recuerdo">
+
+        Y desde aquel día hemos ido creando
+        momentos que quiero seguir guardando
+        contigo. 💕
+
+    </p>
+
+
+    <!-- BOTON -->
+
+    <a
+        href="{{ url_for('menu') }}"
+        class="boton-volver-recuerdo"
+    >
+
+        💗 Volver a nuestro mundo 💗
+
+    </a>
+
+
+</main>
+
+
+<!-- MUSICA -->
+
+<audio
+    id="musica"
+    autoplay
+    loop
+>
+
+    <source
+        src="{{ url_for('static', filename='musica.mp3') }}"
+        type="audio/mpeg"
+    >
+
+</audio>
+
+
+<script>
+
+    /* =========================
+       RECUERDO COMPLETADO
+    ========================= */
+
+    localStorage.setItem(
+        "recuerdoCompletado",
+        "true"
+    );
+
+
+    /* =========================
+       MUSICA
+    ========================= */
+
+    const musica =
+        document.getElementById("musica");
+
+
+    musica.volume = 0.7;
+
+    musica.loop = true;
+
+
+    const tiempoGuardado =
+        sessionStorage.getItem(
+            "tiempoMusica"
+        );
+
+
+    musica.addEventListener(
+        "loadedmetadata",
+        () => {
+
+            if (
+                tiempoGuardado !== null
+            ) {
+
+                musica.currentTime =
+                    parseFloat(
+                        tiempoGuardado
+                    );
+            }
+
+
+            musica.play().catch(() => {
+
+                console.log(
+                    "El navegador bloqueó el autoplay."
+                );
+
+            });
+
+        },
+        {
+            once: true
+        }
+    );
+
+
+    setInterval(() => {
+
+        if (
+            !musica.paused &&
+            !musica.ended
+        ) {
+
+            sessionStorage.setItem(
+                "tiempoMusica",
+                musica.currentTime
+            );
+
+        }
+
+    }, 200);
+
+
+    window.addEventListener(
+        "beforeunload",
+        () => {
+
+            sessionStorage.setItem(
+                "tiempoMusica",
+                musica.currentTime
+            );
+
+        }
+    );
+
+
+    /* =========================
+       CONTADOR
+    ========================= */
+
+    const fechaInicio =
+        new Date(
+            "2025-11-29T00:00:00"
+        );
+
+
+    function actualizarContador() {
+
+        const ahora =
+            new Date();
+
+
+        let diferencia =
+            ahora.getTime()
+            -
+            fechaInicio.getTime();
+
+
+        if (diferencia < 0) {
+
+            diferencia = 0;
+
+        }
+
+
+        const segundosTotales =
+            Math.floor(
+                diferencia / 1000
+            );
+
+
+        const dias =
+            Math.floor(
+                segundosTotales / 86400
+            );
+
+
+        const horas =
+            Math.floor(
+                (
+                    segundosTotales
+                    % 86400
+                ) / 3600
+            );
+
+
+        const minutos =
+            Math.floor(
+                (
+                    segundosTotales
+                    % 3600
+                ) / 60
+            );
+
+
+        const segundos =
+            segundosTotales % 60;
+
+
+        document.getElementById(
+            "dias"
+        ).textContent = dias;
+
+
+        document.getElementById(
+            "horas"
+        ).textContent =
+            String(horas)
+                .padStart(2, "0");
+
+
+        document.getElementById(
+            "minutos"
+        ).textContent =
+            String(minutos)
+                .padStart(2, "0");
+
+
+        document.getElementById(
+            "segundos"
+        ).textContent =
+            String(segundos)
+                .padStart(2, "0");
+
+    }
+
+
+    actualizarContador();
+
+
+    setInterval(
+        actualizarContador,
+        1000
+    );
+
+</script>
+```
+
+</body>
+
+</html>

@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Una carta para ti 💌</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+
+<style>
+    .texto-escritura {
+        visibility: hidden;
+    }
+
+    .texto-escritura.escribiendo {
+        visibility: visible;
+    }
+
+    .palabra {
+        opacity: 0;
+        transition: opacity 0.25s ease;
+    }
+
+    .palabra.visible {
+        opacity: 1;
+    }
+</style>
+```
+
+</head>
+
+<body class="pagina-carta">
+
+
+<div class="carta-decoraciones">
+    <span>🌻</span>
+    <span>💗</span>
+    <span>🎀</span>
+    <span>🌸</span>
+    <span>✨</span>
+    <span>🐱</span>
+    <span>💛</span>
+    <span>🌼</span>
+    <span>💕</span>
+    <span>🎀</span>
+</div>
+
+<main class="contenido-carta">
+
+    <div class="moño-carta">
+        🎀💌🎀
+    </div>
+
+    <h1>💌 Una carta para ti 💌</h1>
+
+    <div class="carta">
+
+        <p class="texto-escritura">
+            Mi bebé chiquitita... 💗
+        </p>
+
+        <p class="texto-escritura">
+            No hay palabras para describir cuanto te quiero.
+        </p>
+
+        <p class="texto-escritura">
+            Gracias por cada momento, cada sonrisa,
+            cada conversación y cada recuerdo que
+            hemos ido creando juntos. 🌻
+        </p>
+
+        <p class="texto-escritura">
+            Eres una persona muy especial para mí
+            y me hace feliz poder compartir tantos
+            momentos contigo. 💛
+        </p>
+
+        <p class="texto-escritura">
+            Espero que cuando leas esto recuerdes
+            lo mucho que te quiero y lo importante
+            que eres para mí. 💗
+        </p>
+
+        <p class="firma texto-escritura">
+            Con mucho amor,<br>
+            💗 Spidermiguel
+        </p>
+
+    </div>
+
+    <a href="{{ url_for('menu') }}" class="boton-volver">
+        💗 Volver a nuestro mundo 💗
+    </a>
+
+</main>
+
+<audio id="musica" autoplay loop>
+    <source
+        src="{{ url_for('static', filename='musica.mp3') }}"
+        type="audio/mpeg"
+    >
+</audio>
+
+<script>
+
+    /* =========================
+       MÚSICA
+    ========================= */
+
+    const musica =
+        document.getElementById("musica");
+
+    musica.volume = 0.7;
+    musica.loop = true;
+
+    const tiempoGuardado =
+        sessionStorage.getItem("tiempoMusica");
+
+    musica.addEventListener("loadedmetadata", () => {
+
+        if (tiempoGuardado !== null) {
+
+            musica.currentTime =
+                parseFloat(tiempoGuardado);
+
+        }
+
+        musica.play().catch(() => {
+
+            console.log(
+                "El navegador bloqueó el autoplay."
+            );
+
+        });
+
+    }, { once: true });
+
+
+    setInterval(() => {
+
+        if (!musica.paused && !musica.ended) {
+
+            sessionStorage.setItem(
+                "tiempoMusica",
+                musica.currentTime
+            );
+
+        }
+
+    }, 200);
+
+
+    window.addEventListener(
+        "beforeunload",
+        () => {
+
+            sessionStorage.setItem(
+                "tiempoMusica",
+                musica.currentTime
+            );
+
+        }
+    );
+
+
+    /* =========================
+       ANIMACIÓN DE LA CARTA
+    ========================= */
+
+    const textos =
+        document.querySelectorAll(
+            ".texto-escritura"
+        );
+
+    let parrafoActual = 0;
+
+
+    function escribirParrafo() {
+
+        if (parrafoActual >= textos.length) {
+
+            /*
+
+               TODA LA CARTA TERMINÓ.
+               Guardamos que ya fue completada.
+
+            */
+
+            localStorage.setItem(
+                "cartaCompletada",
+                "true"
+            );
+
+            return;
+        }
+
+
+        const elemento =
+            textos[parrafoActual];
+
+        let texto =
+            elemento.textContent.trim();
+
+        elemento.innerHTML = "";
+
+        elemento.classList.add(
+            "escribiendo"
+        );
+
+
+        const palabras =
+            texto.split(/\s+/);
+
+        let indice = 0;
+
+
+        function mostrarPalabra() {
+
+            if (indice >= palabras.length) {
+
+                parrafoActual++;
+
+                setTimeout(
+                    escribirParrafo,
+                    600
+                );
+
+                return;
+            }
+
+
+            const span =
+                document.createElement(
+                    "span"
+                );
+
+            span.className =
+                "palabra";
+
+            span.textContent =
+                palabras[indice] + " ";
+
+            elemento.appendChild(span);
+
+
+            requestAnimationFrame(() => {
+
+                span.classList.add(
+                    "visible"
+                );
+
+            });
+
+
+            indice++;
+
+
+            setTimeout(
+                mostrarPalabra,
+                130
+            );
+        }
+
+
+        mostrarPalabra();
+    }
+
+
+    setTimeout(() => {
+
+        escribirParrafo();
+
+    }, 700);
+
+</script>
+
+
+</body>
+</html>

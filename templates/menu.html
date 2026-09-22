@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+
+<html lang="es">
+
+<head>
+
+
+<meta charset="UTF-8">
+
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+>
+
+<title>Nuestro pequeño mundo 💗</title>
+
+<link
+    rel="stylesheet"
+    href="{{ url_for('static', filename='style.css') }}"
+>
+
+<style>
+
+    /* =========================
+       SORPRESA FINAL BLOQUEADA
+    ========================= */
+
+    .sorpresa-bloqueada {
+        opacity: 0.65;
+        cursor: not-allowed;
+        filter: grayscale(0.25);
+    }
+
+    .sorpresa-desbloqueada {
+        animation:
+            sorpresaBrilla 1.5s ease-in-out infinite;
+    }
+
+    .mensaje-bloqueo {
+        margin-top: 12px;
+        font-size: 14px;
+        color: #8d5b72;
+    }
+
+    @keyframes sorpresaBrilla {
+
+        0%, 100% {
+            box-shadow:
+                0 5px 15px rgba(0,0,0,.12);
+        }
+
+        50% {
+            box-shadow:
+                0 5px 25px rgba(255,105,160,.55);
+        }
+    }
+
+</style>
+
+
+</head>
+
+<body class="pagina-menu">
+
+<audio id="musica" autoplay loop>
+
+```
+<source
+    src="{{ url_for('static', filename='musica.mp3') }}"
+    type="audio/mpeg"
+>
+
+
+</audio>
+
+<script>
+
+    const musica =
+        document.getElementById("musica");
+
+
+    musica.volume = 0.7;
+
+    musica.loop = true;
+
+
+    // Recuperar el tiempo anterior
+
+    const tiempoGuardado =
+        sessionStorage.getItem(
+            "tiempoMusica"
+        );
+
+
+    if (tiempoGuardado !== null) {
+
+        musica.addEventListener(
+            "loadedmetadata",
+            () => {
+
+                musica.currentTime =
+                    parseFloat(
+                        tiempoGuardado
+                    );
+
+            },
+            {
+                once: true
+            }
+        );
+
+    }
+
+
+    // Intentar reproducir
+
+    musica.play().catch(() => {
+
+        console.log(
+            "El navegador bloqueó el autoplay."
+        );
+
+    });
+
+
+    // Guardar constantemente el momento de la canción
+
+    setInterval(() => {
+
+        if (!musica.paused) {
+
+            sessionStorage.setItem(
+                "tiempoMusica",
+                musica.currentTime
+            );
+
+        }
+
+    }, 200);
+
+
+    // Guardar exactamente antes de cambiar de página
+
+    window.addEventListener(
+        "beforeunload",
+        () => {
+
+            sessionStorage.setItem(
+                "tiempoMusica",
+                musica.currentTime
+            );
+
+        }
+    );
+
+</script>
+
+
+<!-- DECORACIONES -->
+
+<div class="menu-decoraciones">
+
+    <span>🌻</span>
+    <span>🎀</span>
+    <span>💗</span>
+    <span>🌸</span>
+    <span>✨</span>
+    <span>🐱</span>
+    <span>💛</span>
+    <span>🌼</span>
+    <span>💕</span>
+    <span>🎀</span>
+
+</div>
+
+
+<main class="contenido-menu">
+
+
+    <div class="menu-moño">
+
+        🎀🐱🎀
+
+    </div>
+
+
+    <h1>
+
+        Nuestro pequeño mundo 💗
+
+    </h1>
+
+
+    <p class="menu-subtitulo">
+
+        Hay algunas cositas preparadas especialmente para ti... 🌻
+
+    </p>
+
+
+    <!-- BOTONES -->
+
+    <div class="botones-menu">
+
+
+        <a
+            href="{{ url_for('carta') }}"
+            class="boton-menu"
+        >
+
+            <span class="emoji-boton">
+                💌
+            </span>
+
+            <span>
+                Una carta para ti
+            </span>
+
+        </a>
+
+
+        <a
+            href="{{ url_for('recuerdo') }}"
+            class="boton-menu"
+        >
+
+            <span class="emoji-boton">
+                📸❤️
+            </span>
+
+            <span>
+                Nuestro recuerdo
+            </span>
+
+        </a>
+
+
+        <a
+            href="{{ url_for('juego') }}"
+            class="boton-menu"
+        >
+
+            <span class="emoji-boton">
+                🎮🐱
+            </span>
+
+            <span>
+                Mini juego
+            </span>
+
+        </a>
+
+
+        <!-- SORPRESA FINAL -->
+
+        <div id="sorpresaContenedor">
+
+            <button
+                id="botonSorpresa"
+                type="button"
+                class="boton-menu sorpresa-bloqueada"
+            >
+
+                <span
+                    class="emoji-boton"
+                    id="emojiSorpresa"
+                >
+                    🔒🎁
+                </span>
+
+                <span id="textoSorpresa">
+                    Sorpresa final
+                </span>
+
+            </button>
+
+
+            <div
+                id="mensajeBloqueo"
+                class="mensaje-bloqueo"
+            >
+
+                Completa las otras 3 sorpresas primero 💗
+
+            </div>
+
+        </div>
+
+
+    </div>
+
+
+    <div class="frase-menu">
+
+        🌻 Hecho con mucho amor para ti 💗
+
+    </div>
+
+
+</main>
+
+
+<script>
+
+    /* =========================
+       COMPROBAR PROGRESO
+    ========================= */
+
+    const cartaCompletada =
+        localStorage.getItem(
+            "cartaCompletada"
+        ) === "true";
+
+
+    const recuerdoCompletado =
+        localStorage.getItem(
+            "recuerdoCompletado"
+        ) === "true";
+
+
+    const juegoCompletado =
+        localStorage.getItem(
+            "juegoCompletado"
+        ) === "true";
+
+
+    const todasCompletadas =
+        cartaCompletada &&
+        recuerdoCompletado &&
+        juegoCompletado;
+
+
+    const botonSorpresa =
+        document.getElementById(
+            "botonSorpresa"
+        );
+
+
+    const emojiSorpresa =
+        document.getElementById(
+            "emojiSorpresa"
+        );
+
+
+    const textoSorpresa =
+        document.getElementById(
+            "textoSorpresa"
+        );
+
+
+    const mensajeBloqueo =
+        document.getElementById(
+            "mensajeBloqueo"
+        );
+
+
+    /* =========================
+       DESBLOQUEAR
+    ========================= */
+
+    if (todasCompletadas) {
+
+        botonSorpresa.classList.remove(
+            "sorpresa-bloqueada"
+        );
+
+        botonSorpresa.classList.add(
+            "sorpresa-desbloqueada"
+        );
+
+        emojiSorpresa.textContent =
+            "🎁💗";
+
+        textoSorpresa.textContent =
+            "Sorpresa final";
+
+
+        mensajeBloqueo.textContent =
+            "✨ ¡Ya desbloqueaste la sorpresa final! ✨";
+
+
+        botonSorpresa.onclick = () => {
+
+            window.location.href =
+                "{{ url_for('sorpresa_final') }}";
+
+        };
+
+    }
+
+
+    /* =========================
+       SI ESTÁ BLOQUEADA
+    ========================= */
+
+    else {
+
+        botonSorpresa.onclick = () => {
+
+            alert(
+                "💗 Todavía faltan algunas sorpresas por descubrir..."
+            );
+
+        };
+
+    }
+
+</script>
+
+
+</body>
+
+</html>

@@ -1,0 +1,996 @@
+<!DOCTYPE html>
+
+<html lang="es">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+>
+
+<title>Una última sorpresa 💗</title>
+
+<link
+    rel="stylesheet"
+    href="{{ url_for('static', filename='style.css') }}"
+>
+
+<style>
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    overflow: hidden;
+    font-family: Arial, sans-serif;
+
+    background:
+        radial-gradient(circle at 20% 20%, #fff6a8 0%, transparent 22%),
+        radial-gradient(circle at 80% 25%, #ffc5dc 0%, transparent 25%),
+        radial-gradient(circle at 50% 90%, #ffe79b 0%, transparent 25%),
+        linear-gradient(135deg, #fff4b8, #ffd9e8, #fff0a8, #ffd8ec);
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+
+    position: relative;
+}
+
+
+/* =========================
+   DECORACIONES
+========================= */
+
+.decoraciones-final {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    overflow: hidden;
+    z-index: 1;
+}
+
+.decoraciones-final span {
+    position: absolute;
+    font-size: 28px;
+
+    animation:
+        flotarDecoracion
+        5s
+        ease-in-out
+        infinite;
+
+    opacity: .85;
+
+    filter:
+        drop-shadow(
+            0 3px 4px
+            rgba(0,0,0,.10)
+        );
+}
+
+.decoraciones-final span:nth-child(1) {
+    top: 5%;
+    left: 5%;
+}
+
+.decoraciones-final span:nth-child(2) {
+    top: 12%;
+    left: 18%;
+    animation-delay: 1s;
+}
+
+.decoraciones-final span:nth-child(3) {
+    top: 7%;
+    right: 8%;
+    animation-delay: 2s;
+}
+
+.decoraciones-final span:nth-child(4) {
+    top: 25%;
+    right: 18%;
+    animation-delay: .5s;
+}
+
+.decoraciones-final span:nth-child(5) {
+    top: 38%;
+    left: 5%;
+    animation-delay: 1.5s;
+}
+
+.decoraciones-final span:nth-child(6) {
+    top: 48%;
+    right: 5%;
+    animation-delay: 2.5s;
+}
+
+.decoraciones-final span:nth-child(7) {
+    bottom: 20%;
+    left: 8%;
+    animation-delay: 3s;
+}
+
+.decoraciones-final span:nth-child(8) {
+    bottom: 12%;
+    right: 8%;
+    animation-delay: 1.5s;
+}
+
+.decoraciones-final span:nth-child(9) {
+    bottom: 7%;
+    left: 28%;
+    animation-delay: 2s;
+}
+
+.decoraciones-final span:nth-child(10) {
+    bottom: 18%;
+    right: 28%;
+    animation-delay: .7s;
+}
+
+.decoraciones-final span:nth-child(11) {
+    top: 55%;
+    left: 18%;
+    animation-delay: 3.5s;
+}
+
+.decoraciones-final span:nth-child(12) {
+    top: 65%;
+    right: 18%;
+    animation-delay: 1.2s;
+}
+
+.decoraciones-final span:nth-child(13) {
+    top: 18%;
+    left: 40%;
+    animation-delay: 2.7s;
+}
+
+.decoraciones-final span:nth-child(14) {
+    bottom: 30%;
+    right: 42%;
+    animation-delay: 1.8s;
+}
+
+
+/* =========================
+   BRILLOS
+========================= */
+
+.brillos {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 2;
+}
+
+.brillos span {
+    position: absolute;
+    color: white;
+    font-size: 22px;
+
+    animation:
+        brillo
+        2s
+        ease-in-out
+        infinite;
+}
+
+.brillos span:nth-child(1) {
+    top: 15%;
+    left: 30%;
+}
+
+.brillos span:nth-child(2) {
+    top: 30%;
+    left: 12%;
+    animation-delay: .5s;
+}
+
+.brillos span:nth-child(3) {
+    top: 20%;
+    right: 30%;
+    animation-delay: 1s;
+}
+
+.brillos span:nth-child(4) {
+    bottom: 25%;
+    left: 20%;
+    animation-delay: 1.5s;
+}
+
+.brillos span:nth-child(5) {
+    bottom: 15%;
+    right: 20%;
+    animation-delay: .8s;
+}
+
+.brillos span:nth-child(6) {
+    top: 60%;
+    right: 10%;
+    animation-delay: 1.8s;
+}
+
+
+/* =========================
+   CONTENEDOR
+========================= */
+
+.contenedor-final {
+    width: min(90%, 650px);
+    padding: 40px 25px;
+
+    background:
+        rgba(255,255,255,.91);
+
+    border-radius: 30px;
+
+    box-shadow:
+        0 15px 40px rgba(0,0,0,.15),
+        0 0 35px rgba(255,145,190,.25);
+
+    position: relative;
+    z-index: 5;
+
+    animation:
+        aparecer
+        1s
+        ease-out;
+
+    border:
+        3px solid
+        rgba(255,255,255,.9);
+}
+
+
+/* =========================
+   MOÑO
+========================= */
+
+.moño-final {
+    font-size: 65px;
+
+    animation:
+        movimientoMoño
+        2s
+        ease-in-out
+        infinite;
+}
+
+
+/* =========================
+   TITULO
+========================= */
+
+h1 {
+    color: #e94f87;
+
+    font-size:
+        clamp(
+            28px,
+            6vw,
+            45px
+        );
+
+    margin: 15px 0;
+
+    text-shadow:
+        2px 2px 0 white,
+        0 4px 12px
+        rgba(233,79,135,.15);
+}
+
+.pregunta {
+    color: #70495a;
+
+    font-size: 21px;
+
+    line-height: 1.5;
+
+    margin: 25px auto;
+}
+
+
+/* =========================
+   OPCIONES
+========================= */
+
+.opciones {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+
+    width: min(90%, 380px);
+
+    margin: 25px auto;
+}
+
+.opcion {
+    width: 100%;
+
+    padding: 16px 20px;
+
+    border:
+        3px solid
+        #ffd0df;
+
+    border-radius: 22px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #fffafd,
+            #fff1f6
+        );
+
+    color: #70495a;
+
+    font-size: 18px;
+
+    font-weight: bold;
+
+    cursor: pointer;
+
+    box-shadow:
+        0 5px 12px
+        rgba(0,0,0,.08);
+
+    transition:
+        transform .25s ease,
+        box-shadow .25s ease,
+        background .25s ease;
+}
+
+.opcion:hover {
+    transform:
+        translateY(-3px)
+        scale(1.02);
+
+    box-shadow:
+        0 8px 17px
+        rgba(0,0,0,.13);
+
+    background:
+        #fff0f6;
+}
+
+
+/* =========================
+   ERROR
+========================= */
+
+.error-final {
+    color: #d94b72;
+
+    font-weight: bold;
+
+    font-size: 18px;
+
+    margin-top: 18px;
+
+    min-height: 28px;
+
+    animation:
+        aparecer
+        .3s
+        ease-out;
+}
+
+
+/* =========================
+   PARTE FINAL
+========================= */
+
+.segunda-parte {
+    display: none;
+}
+
+.segunda-parte.mostrar {
+    display: block;
+
+    animation:
+        finalAparecer
+        1.5s
+        ease-out;
+}
+
+.te-amo {
+    font-size:
+        clamp(
+            55px,
+            13vw,
+            100px
+        );
+
+    font-weight: bold;
+
+    color: #e94f87;
+
+    text-shadow:
+        3px 3px 0 white,
+        0 0 20px
+        rgba(233,79,135,.45);
+
+    animation:
+        latido
+        1.2s
+        ease-in-out
+        infinite;
+}
+
+.mensaje-amor {
+    color: #e94f87;
+
+    font-size:
+        clamp(
+            30px,
+            7vw,
+            52px
+        );
+
+    font-weight: bold;
+
+    line-height: 1.25;
+
+    margin-top: 15px;
+
+    text-shadow:
+        2px 2px 0 white,
+        0 0 15px
+        rgba(233,79,135,.35);
+
+    animation:
+        latido
+        1.4s
+        ease-in-out
+        infinite;
+}
+
+
+/* =========================
+   CORAZONES
+========================= */
+
+.corazones-final {
+    position: fixed;
+    inset: 0;
+
+    pointer-events: none;
+
+    overflow: hidden;
+
+    z-index: 3;
+}
+
+.corazones-final span {
+    position: absolute;
+
+    bottom: -60px;
+
+    font-size: 30px;
+
+    animation:
+        subirCorazon
+        7s
+        linear
+        infinite;
+}
+
+.corazones-final span:nth-child(1) {
+    left: 3%;
+}
+
+.corazones-final span:nth-child(2) {
+    left: 10%;
+    animation-delay: 1s;
+}
+
+.corazones-final span:nth-child(3) {
+    left: 18%;
+    animation-delay: 2.5s;
+}
+
+.corazones-final span:nth-child(4) {
+    left: 28%;
+    animation-delay: .5s;
+}
+
+.corazones-final span:nth-child(5) {
+    left: 38%;
+    animation-delay: 3s;
+}
+
+.corazones-final span:nth-child(6) {
+    left: 48%;
+    animation-delay: 1.5s;
+}
+
+.corazones-final span:nth-child(7) {
+    left: 58%;
+    animation-delay: 4s;
+}
+
+.corazones-final span:nth-child(8) {
+    left: 68%;
+    animation-delay: 2s;
+}
+
+.corazones-final span:nth-child(9) {
+    left: 78%;
+    animation-delay: 3.5s;
+}
+
+.corazones-final span:nth-child(10) {
+    left: 88%;
+    animation-delay: 1.2s;
+}
+
+.corazones-final span:nth-child(11) {
+    left: 95%;
+    animation-delay: 4.5s;
+}
+
+
+/* =========================
+   ANIMACIONES
+========================= */
+
+@keyframes aparecer {
+
+    from {
+        opacity: 0;
+
+        transform:
+            translateY(25px)
+            scale(.95);
+    }
+
+    to {
+        opacity: 1;
+
+        transform:
+            translateY(0)
+            scale(1);
+    }
+}
+
+@keyframes finalAparecer {
+
+    0% {
+        opacity: 0;
+
+        transform:
+            scale(.5)
+            rotate(-3deg);
+    }
+
+    60% {
+        transform:
+            scale(1.06)
+            rotate(2deg);
+    }
+
+    100% {
+        opacity: 1;
+
+        transform:
+            scale(1)
+            rotate(0);
+    }
+}
+
+@keyframes movimientoMoño {
+
+    0%, 100% {
+        transform:
+            rotate(-5deg);
+    }
+
+    50% {
+        transform:
+            rotate(5deg)
+            scale(1.05);
+    }
+}
+
+@keyframes latido {
+
+    0%, 100% {
+        transform:
+            scale(1);
+    }
+
+    50% {
+        transform:
+            scale(1.08);
+    }
+}
+
+@keyframes subirCorazon {
+
+    0% {
+        transform:
+            translateY(0)
+            translateX(0)
+            rotate(0deg);
+
+        opacity: 0;
+    }
+
+    15% {
+        opacity: 1;
+    }
+
+    50% {
+        transform:
+            translateY(-50vh)
+            translateX(25px)
+            rotate(180deg);
+    }
+
+    100% {
+        transform:
+            translateY(-110vh)
+            translateX(-25px)
+            rotate(360deg);
+
+        opacity: 0;
+    }
+}
+
+@keyframes flotarDecoracion {
+
+    0%, 100% {
+        transform:
+            translateY(0)
+            rotate(-6deg)
+            scale(1);
+    }
+
+    50% {
+        transform:
+            translateY(-18px)
+            rotate(7deg)
+            scale(1.12);
+    }
+}
+
+@keyframes brillo {
+
+    0%, 100% {
+        opacity: .2;
+
+        transform:
+            scale(.7)
+            rotate(0deg);
+    }
+
+    50% {
+        opacity: 1;
+
+        transform:
+            scale(1.4)
+            rotate(180deg);
+    }
+}
+
+
+/* =========================
+   CELULAR
+========================= */
+
+@media (max-width: 600px) {
+
+    .contenedor-final {
+        padding:
+            30px
+            15px;
+    }
+
+    .moño-final {
+        font-size: 50px;
+    }
+
+    .pregunta {
+        font-size: 18px;
+    }
+
+    .mensaje-amor {
+        font-size: 32px;
+    }
+
+    .decoraciones-final span {
+        font-size: 23px;
+    }
+
+    .corazones-final span {
+        font-size: 25px;
+    }
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<div class="decoraciones-final">
+
+    <span>🌻</span>
+    <span>🌸</span>
+    <span>💗</span>
+    <span>🌼</span>
+    <span>💕</span>
+    <span>🌷</span>
+    <span>💛</span>
+    <span>🌸</span>
+    <span>💗</span>
+    <span>🌻</span>
+    <span>✨</span>
+    <span>🌼</span>
+    <span>💕</span>
+    <span>🌷</span>
+
+</div>
+
+
+<div class="brillos">
+
+    <span>✨</span>
+    <span>✦</span>
+    <span>✨</span>
+    <span>✧</span>
+    <span>✨</span>
+    <span>✦</span>
+
+</div>
+
+
+<div class="corazones-final">
+
+    <span>💗</span>
+    <span>💕</span>
+    <span>❤️</span>
+    <span>💗</span>
+    <span>💛</span>
+    <span>💕</span>
+    <span>❤️</span>
+    <span>💗</span>
+    <span>💖</span>
+    <span>💞</span>
+    <span>❤️</span>
+
+</div>
+
+
+<main class="contenedor-final">
+
+
+    <section id="preguntaFinal">
+
+        <div class="moño-final">
+            🎀💗🎀
+        </div>
+
+
+        <h1>
+            💗 Una última pregunta...
+        </h1>
+
+
+        <p class="pregunta">
+
+            ¿Cuándo fue que empezamos
+            a conocernos? 💭💕
+
+        </p>
+
+
+        <div class="opciones">
+
+            <button
+                type="button"
+                class="opcion"
+                onclick="comprobarRespuesta(false)"
+            >
+
+                🌸 20 de septiembre
+
+            </button>
+
+
+            <button
+                type="button"
+                class="opcion"
+                onclick="comprobarRespuesta(true)"
+            >
+
+                💗 26 de septiembre
+
+            </button>
+
+
+            <button
+                type="button"
+                class="opcion"
+                onclick="comprobarRespuesta(false)"
+            >
+
+                🌻 18 de septiembre
+
+            </button>
+
+        </div>
+
+
+        <div
+            id="errorFinal"
+            class="error-final"
+        ></div>
+
+    </section>
+
+
+    <section
+        id="segundaParte"
+        class="segunda-parte"
+    >
+
+        <div class="moño-final">
+            🎀🌻🎀
+        </div>
+
+
+        <div class="te-amo">
+
+            TE AMO ❤️
+
+        </div>
+
+
+        <div class="mensaje-amor">
+
+            En todos los universos 🌌✨
+
+        </div>
+
+    </section>
+
+
+</main>
+
+
+<audio
+    id="musica"
+    autoplay
+    loop
+>
+
+    <source
+        src="{{ url_for('static', filename='musica.mp3') }}"
+        type="audio/mpeg"
+    >
+
+</audio>
+
+
+<script>
+
+
+const musica =
+    document.getElementById("musica");
+
+
+musica.volume = 0.7;
+
+musica.loop = true;
+
+
+const tiempoGuardado =
+    sessionStorage.getItem(
+        "tiempoMusica"
+    );
+
+
+musica.addEventListener(
+    "loadedmetadata",
+    () => {
+
+        if (
+            tiempoGuardado !== null
+        ) {
+
+            musica.currentTime =
+                parseFloat(
+                    tiempoGuardado
+                );
+        }
+
+
+        musica.play().catch(() => {
+
+            console.log(
+                "El navegador bloqueó el autoplay."
+            );
+
+        });
+
+    },
+    {
+        once: true
+    }
+);
+
+
+setInterval(() => {
+
+    if (
+        !musica.paused &&
+        !musica.ended
+    ) {
+
+        sessionStorage.setItem(
+            "tiempoMusica",
+            musica.currentTime
+        );
+
+    }
+
+}, 200);
+
+
+window.addEventListener(
+    "beforeunload",
+    () => {
+
+        sessionStorage.setItem(
+            "tiempoMusica",
+            musica.currentTime
+        );
+
+    }
+);
+
+
+function comprobarRespuesta(correcta) {
+
+    const error =
+        document.getElementById(
+            "errorFinal"
+        );
+
+
+    if (correcta) {
+
+        document.getElementById(
+            "preguntaFinal"
+        ).style.display = "none";
+
+
+        document.getElementById(
+            "segundaParte"
+        ).classList.add(
+            "mostrar"
+        );
+
+
+        return;
+    }
+
+
+    error.textContent =
+        "Popi dice que pienses bien JAJAJA 💗";
+
+}
+
+</script>
+
+
+</body>
+
+</html>
