@@ -12,7 +12,7 @@ def inicio():
 
     if request.method == "POST":
 
-        password = request.form.get("password")
+        password = request.form.get("password", "").strip().lower()
 
         if password == CONTRASENA:
             return redirect(url_for("sorpresa"))
@@ -28,7 +28,6 @@ def inicio():
 
 @app.route("/sorpresa")
 def sorpresa():
-
     return render_template(
         "sorpresa.html"
     )
@@ -36,7 +35,6 @@ def sorpresa():
 
 @app.route("/menu")
 def menu():
-
     return render_template(
         "menu.html"
     )
@@ -44,7 +42,6 @@ def menu():
 
 @app.route("/carta")
 def carta():
-
     return render_template(
         "carta.html"
     )
@@ -52,7 +49,6 @@ def carta():
 
 @app.route("/recuerdo")
 def recuerdo():
-
     return render_template(
         "recuerdo.html"
     )
@@ -60,7 +56,6 @@ def recuerdo():
 
 @app.route("/juego")
 def juego():
-
     return render_template(
         "juego.html"
     )
@@ -68,7 +63,6 @@ def juego():
 
 @app.route("/sorpresa-final")
 def sorpresa_final():
-
     return render_template(
         "sorpresa_final.html"
     )
