@@ -17,173 +17,241 @@
         href="{{ url_for('static', filename='style.css') }}"
     >
 
+    <style>
+
+        #mundo {
+            display: none;
+            width: 100%;
+            min-height: 100vh;
+        }
+
+        #paginaMundo {
+            width: 100%;
+            min-height: 100vh;
+            height: 100vh;
+            border: none;
+            display: block;
+        }
+
+    </style>
+
 </head>
 
 
 <body class="pagina-inicio">
 
 
-    <!-- DECORACIONES KAWAII -->
+    <!-- ================================================= -->
+    <!-- ÚNICO REPRODUCTOR DE TODA LA PÁGINA -->
+    <!-- ================================================= -->
 
-    <div class="decoraciones-inicio">
-
-        <span>🌻</span>
-        <span>🌸</span>
-        <span>🎀</span>
-        <span>💗</span>
-        <span>🌼</span>
-        <span>✨</span>
-        <span>🐱</span>
-        <span>💛</span>
-        <span>🌸</span>
-        <span>🎀</span>
-        <span>💕</span>
-        <span>🌻</span>
-        <span>✨</span>
-        <span>🐱</span>
-        <span>💗</span>
-        <span>🌼</span>
-
-    </div>
+    <audio
+        id="musica"
+        src="{{ url_for('static', filename='musica.mp3') }}"
+        preload="auto"
+        playsinline
+        loop>
+    </audio>
 
 
-    <!-- CORAZONES FLOTANDO -->
+    <!-- ================================================= -->
+    <!-- PANTALLA DE CONTRASEÑA -->
+    <!-- ================================================= -->
 
-    <div class="corazones-inicio">
-
-        <span>💗</span>
-        <span>💛</span>
-        <span>💕</span>
-        <span>💖</span>
-        <span>💗</span>
-        <span>✨</span>
-        <span>💛</span>
-
-    </div>
+    <div id="pantallaInicio">
 
 
-    <!-- TARJETA -->
+        <!-- DECORACIONES KAWAII -->
 
-    <div class="tarjeta">
+        <div class="decoraciones-inicio">
 
-
-        <!-- MOÑO -->
-
-        <div class="kitty-superior">
-
-            🎀 🐱 🎀
+            <span>🌻</span>
+            <span>🌸</span>
+            <span>🎀</span>
+            <span>💗</span>
+            <span>🌼</span>
+            <span>✨</span>
+            <span>🐱</span>
+            <span>💛</span>
+            <span>🌸</span>
+            <span>🎀</span>
+            <span>💕</span>
+            <span>🌻</span>
+            <span>✨</span>
+            <span>🐱</span>
+            <span>💗</span>
+            <span>🌼</span>
 
         </div>
 
 
-        <div class="corazon">
+        <!-- CORAZONES FLOTANDO -->
 
-            💛
+        <div class="corazones-inicio">
+
+            <span>💗</span>
+            <span>💛</span>
+            <span>💕</span>
+            <span>💖</span>
+            <span>💗</span>
+            <span>✨</span>
+            <span>💛</span>
 
         </div>
 
 
-        <h1>
+        <!-- TARJETA -->
 
-            Para una persona especial... 🌸
-
-        </h1>
+        <div class="tarjeta">
 
 
-        <p>
+            <!-- MOÑO -->
 
-            Esta página fue hecha
-            especialmente para ti. 💗
+            <div class="kitty-superior">
 
-            <br>
-            <br>
+                🎀 🐱 🎀
 
-            Pero antes de entrar
-            tienes que descubrir
-            la contraseña 🌻🎀
-
-        </p>
+            </div>
 
 
-        <!-- FORMULARIO -->
+            <div class="corazon">
 
-        <form method="POST">
+                💛
+
+            </div>
 
 
-            <div class="campo-password">
+            <h1>
 
-                <input
-                    type="text"
-                    id="password"
-                    name="password"
-                    placeholder="Escribe la contraseña..."
-                    autocomplete="off"
-                    required
-                >
+                Para una persona especial... 🌸
+
+            </h1>
+
+
+            <p>
+
+                Esta página fue hecha
+                especialmente para ti. 💗
+
+                <br>
+                <br>
+
+                Pero antes de entrar
+                tienes que descubrir
+                la contraseña 🌻🎀
+
+            </p>
+
+
+            <!-- FORMULARIO -->
+
+            <form
+                id="formulario"
+                method="POST"
+            >
+
+
+                <div class="campo-password">
+
+
+                    <input
+                        type="text"
+                        id="password"
+                        name="password"
+                        placeholder="Escribe la contraseña..."
+                        autocomplete="off"
+                        required
+                    >
+
+
+                    <button
+                        type="button"
+                        class="ver-password"
+                        onclick="ocultarPassword()"
+                        aria-label="Ocultar contraseña"
+                    >
+
+                        🙈
+
+                    </button>
+
+
+                </div>
 
 
                 <button
-                    type="button"
-                    class="ver-password"
-                    onclick="ocultarPassword()"
-                    aria-label="Ocultar contraseña"
+                    type="submit"
+                    class="boton-entrar"
+                    id="botonEntrar"
                 >
 
-                    🙈
+                    Entrar ❤️✨
 
                 </button>
 
-            </div>
+
+            </form>
 
 
-            <button
-                type="submit"
-                class="boton-entrar"
+            <!-- ERROR -->
+
+            <div
+                id="error"
+                class="error"
+                style="display: none;"
             >
 
-                Entrar ❤️✨
+                <div class="error-emoji">
 
-            </button>
+                    🍪😂
+
+                </div>
 
 
-        </form>
+                <strong>
+
+                    Ups 😭
+
+                </strong>
 
 
-        <!-- ERROR -->
+                <br>
 
-        {% if error %}
 
-        <div class="error">
+                <span id="textoError">
 
-            <div class="error-emoji">
+                    Prueba otra vez o no habrá popi para ti 🍪😂
 
-                🍪😂
+                </span>
 
             </div>
 
 
-            <strong>
+            <div class="decoracion-abajo">
 
-                Ups 😭
+                🌻 💗 🎀 💗 🌻
 
-            </strong>
+            </div>
 
-
-            <br>
-
-
-            {{ error }}
 
         </div>
 
-        {% endif %}
+
+    </div>
 
 
-        <div class="decoracion-abajo">
+    <!-- ================================================= -->
+    <!-- CONTENIDO DE LAS DEMÁS PÁGINAS -->
+    <!-- ================================================= -->
 
-            🌻 💗 🎀 💗 🌻
+    <div id="mundo">
 
-        </div>
+
+        <iframe
+            id="paginaMundo"
+            title="Nuestro pequeño mundo"
+            allow="autoplay"
+        ></iframe>
 
 
     </div>
@@ -191,30 +259,401 @@
 
     <script>
 
+
+        /* =================================================
+           ELEMENTOS
+        ================================================= */
+
+
+        const formulario =
+            document.getElementById("formulario");
+
+
+        const password =
+            document.getElementById("password");
+
+
+        const musica =
+            document.getElementById("musica");
+
+
+        const pantallaInicio =
+            document.getElementById("pantallaInicio");
+
+
+        const mundo =
+            document.getElementById("mundo");
+
+
+        const paginaMundo =
+            document.getElementById("paginaMundo");
+
+
+        const error =
+            document.getElementById("error");
+
+
+        const textoError =
+            document.getElementById("textoError");
+
+
+        const botonEntrar =
+            document.getElementById("botonEntrar");
+
+
+        /* =================================================
+           CONFIGURACIÓN DE LA MÚSICA
+        ================================================= */
+
+
+        musica.volume = 0.7;
+
+        musica.loop = true;
+
+        musica.muted = false;
+
+
+        /* =================================================
+           MOSTRAR / OCULTAR CONTRASEÑA
+        ================================================= */
+
+
         function ocultarPassword() {
 
-            const password =
-                document.getElementById("password");
 
             const boton =
-                document.querySelector(".ver-password");
+                document.querySelector(
+                    ".ver-password"
+                );
 
 
-            if (password.type === "text") {
+            if (
+                password.type ===
+                "text"
+            ) {
 
-                password.type = "password";
+                password.type =
+                    "password";
 
-                boton.textContent = "👁️";
+                boton.textContent =
+                    "👁️";
 
             } else {
 
-                password.type = "text";
+                password.type =
+                    "text";
 
-                boton.textContent = "🙈";
+                boton.textContent =
+                    "🙈";
 
             }
 
         }
+
+
+        /* =================================================
+           FORMULARIO
+        ================================================= */
+
+
+        formulario.addEventListener(
+            "submit",
+            function(evento) {
+
+
+                evento.preventDefault();
+
+
+                const valor =
+                    password.value
+                        .trim()
+                        .toLowerCase();
+
+
+                if (!valor) {
+
+                    return;
+
+                }
+
+
+                /* =========================================
+                   CONTRASEÑA INCORRECTA
+                ========================================= */
+
+
+                if (
+                    valor !==
+                    "biscochito"
+                ) {
+
+
+                    textoError.textContent =
+                        "Prueba otra vez o no habrá popi para ti 🍪😂";
+
+
+                    error.style.display =
+                        "block";
+
+
+                    musica.pause();
+
+                    musica.currentTime =
+                        0;
+
+
+                    return;
+
+                }
+
+
+                /* =========================================
+                   CONTRASEÑA CORRECTA
+                ========================================= */
+
+
+                error.style.display =
+                    "none";
+
+
+                /*
+                 * IMPORTANTE:
+                 *
+                 * Este play() ocurre directamente
+                 * dentro del evento del botón.
+                 *
+                 * No usamos await.
+                 *
+                 * El navegador móvil recibe
+                 * la reproducción como consecuencia
+                 * directa del toque del usuario.
+                 */
+
+
+                musica.muted = false;
+
+
+                musica.play()
+                    .then(function() {
+
+                        console.log(
+                            "Música iniciada correctamente."
+                        );
+
+                    })
+                    .catch(function(e) {
+
+                        console.log(
+                            "El navegador bloqueó la música:",
+                            e
+                        );
+
+                    });
+
+
+                /*
+                 * Ocultamos la pantalla
+                 * de contraseña.
+                 */
+
+                pantallaInicio.style.display =
+                    "none";
+
+
+                /*
+                 * Mostramos el mundo.
+                 */
+
+                mundo.style.display =
+                    "block";
+
+
+                /*
+                 * Cargamos la primera página
+                 * DESPUÉS de solicitar la reproducción.
+                 *
+                 * La página principal permanece viva,
+                 * por lo que su audio también permanece vivo.
+                 */
+
+                paginaMundo.src =
+                    "/sorpresa";
+
+
+            }
+        );
+
+
+        /* =================================================
+           PROTECCIÓN CONTRA AUDIOS INTERNOS
+        ================================================= */
+
+
+        paginaMundo.addEventListener(
+            "load",
+            function() {
+
+
+                try {
+
+
+                    const documento =
+                        paginaMundo.contentDocument;
+
+
+                    if (!documento) {
+
+                        return;
+
+                    }
+
+
+                    /*
+                     * El único audio permitido
+                     * es el de esta página principal.
+                     */
+
+                    const audios =
+                        documento.querySelectorAll(
+                            "audio"
+                        );
+
+
+                    audios.forEach(
+                        function(audio) {
+
+
+                            audio.pause();
+
+                            audio.currentTime =
+                                0;
+
+                            audio.remove();
+
+
+                        }
+                    );
+
+
+                    /*
+                     * Silenciar cualquier video
+                     * por seguridad.
+                     */
+
+                    const videos =
+                        documento.querySelectorAll(
+                            "video"
+                        );
+
+
+                    videos.forEach(
+                        function(video) {
+
+
+                            video.pause();
+
+                            video.muted =
+                                true;
+
+
+                        }
+                    );
+
+
+                    /*
+                     * Bloquear cualquier intento
+                     * posterior de reproducir
+                     * un audio dentro del iframe.
+                     */
+
+                    documento.addEventListener(
+                        "play",
+                        function(evento) {
+
+
+                            if (
+                                evento.target &&
+                                evento.target.tagName ===
+                                "AUDIO"
+                            ) {
+
+
+                                evento.target.pause();
+
+                                evento.target.currentTime =
+                                    0;
+
+
+                            }
+
+                        },
+                        true
+                    );
+
+
+                } catch (e) {
+
+
+                    console.log(
+                        "Protección de audio interno:",
+                        e
+                    );
+
+
+                }
+
+            }
+        );
+
+
+        /* =================================================
+           GUARDAR POSICIÓN DE LA MÚSICA
+        ================================================= */
+
+
+        setInterval(
+            function() {
+
+
+                if (
+                    !musica.paused &&
+                    !musica.ended
+                ) {
+
+
+                    sessionStorage.setItem(
+                        "tiempoMusica",
+                        musica.currentTime
+                    );
+
+
+                }
+
+
+            },
+            200
+        );
+
+
+        /* =================================================
+           GUARDAR AL SALIR
+        ================================================= */
+
+
+        window.addEventListener(
+            "beforeunload",
+            function() {
+
+
+                sessionStorage.setItem(
+                    "tiempoMusica",
+                    musica.currentTime
+                );
+
+
+            }
+        );
+
 
     </script>
 
@@ -222,4 +661,3 @@
 </body>
 
 </html>
-```
